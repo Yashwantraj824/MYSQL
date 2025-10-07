@@ -306,8 +306,56 @@ In short:
 
 -RIGHT JOIN (RIGHT OUTER JOIN) → Returns all rows from the right table and matching rows from the left table; non-matching rows show NULL.
 
+
+
+
+
 -FULL JOIN (FULL OUTER JOIN) → Returns all rows when there is a match in either table; unmatched rows from both sides show NULL.
 
 -SELF JOIN → Joins a table with itself
 
+
 https://joins.spathon.com/ - referring website
+
+8)DCL- Data Control Lnaguage 
+
+Grant- 
+ -Given premission to the user to work with
+ 
+ -Other than that the user can't perform other actions. 
+
+ -Example- GRANT SELECT, INSERT ON employees TO yashwant;
+
+Revoke- 
+ -Removes previously granted privileges.
+
+ -Example - REVOKE INSERT ON employees FROM yashwant;
+
+9)TCL - Transcations Control Language
+ 
+ -TCL commands are used to manage transactions in a database.
+
+ -A transaction is a group of SQL statements that are executed as a single unit.
+
+ -COMMIT - Saves all changes made during the transaction permanently. 
+
+  Example- UPDATE employees SET salary = salary + 5000 WHERE dept = 'IT'; 
+            COMMIT;
+
+ -ROLLBACK - Cancels all changes made during the current transaction.         
+
+Example- DELETE FROM employees WHERE dept = 'HR';
+ROLLBACK;
+
+-SAVEPOINT - Creates a point within a transaction to which you can roll back. 
+
+Example- SAVEPOINT savepoint_name;
+
+-SET TRANSACTION - Defines the properties of a transaction.                
+
+Example- SET TRANSACTION READ WRITE;
+
+
+10)Practice -
+https://www.sql-practice.online/  -sql practice.com
+https://leetcode.com/studyplan/top-sql-50/ -Leetcode
