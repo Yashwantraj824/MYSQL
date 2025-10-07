@@ -1,0 +1,313 @@
+1) Setup-
+
+mkdir sql_noteboon
+cd sql_notebook
+
+Create a environment in mysql(needed if using jupyter notebook)-
+python -m venu env
+env\Scripts\activate
+jupter notebook
+
+//starting context
+pip install notebook
+pip install ipython-sql
+pip install mysql-connector-python
+
+2)Jupyter notebook -
+
+Load to connect with localhost (it save all command and process)
+%load_ext sql
+%sql mysql+mysqlconnector://root:mysql@localhost/test
+
+Start with %%sql with your commands
+
+3)Database command-
+
+-Create a database -
+ create database demo;
+
+-Use the databases-
+ use demo
+
+-show all the databases;
+ show databases;
+
+-Delete an database-
+ drop database demo;
+
+4)Constraints-
+
+-NOT NULL - Ensures that a column cannot have a NULL value
+
+-UNIQUE - Ensures that all values in a column are different and accept null.
+
+-PRIMARY KEY - Combination of NOT NULL and UNIQUE. Uniquely identifies each row in a table.
+
+-FOREIGN KEY - Prevents actions that would destroy links between tables
+
+-CHECK - Ensures that the values in a column satisfies a specific condition
+
+-DEFAULT - Sets a default value for a column if no value is specified
+
+-CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+Concepts
+
+-Candidate key - Eligible for usage as a primary key .
+
+-Composite key - Combination of columns as a primary key. Using 2 primary key in table. 
+
+-Super key - Any column set that uniquely identifies rows.
+
+-Alternate key - Candidate keys not chosen as primary key.
+
+
+4)DDL command(Data Definitions Language (CRUD)-
+ 
+CREATE-
+
+-create tables-
+ create table sample(sno int,name varchar(200));
+
+-create a temporary table(used for checking or temporary) -
+ create temporary table sample(sno int,name varchar(50));
+
+-Copy the table
+ create table xyz select * from sample; 
+
+-Copy an table with select column
+ create table xyz select sno from sample;
+
+-Copy an table with conditions
+ create table xyz select * from sample where sno<1000;
+
+-Column name of an table-
+ desc sample;
+
+ALERT-
+
+-Adding a column to an table
+ alter table sample ADD grade int;
+
+-remove a column from an table
+ alter table sample drop column sno;
+
+-rename a table-
+ alter table sample rename to demo;
+
+DROP-
+
+-truncate is used to delete all the data in the table(table exist but data is deleted)-
+ truncate table sample;
+
+-drop is used to delete the table itself with its data-
+ drop table sample;
+
+5)DATA Manipulation Language-
+
+INSERT-
+
+-insert values in table-
+ insert into sample values(101,'yashu');
+
+-insert values from another table with column name-
+ insert into xyz select sno from sample;
+
+-insert values from another table with column name with conditions-
+ insert into xyz select sno from sample where sno<1000;
+
+SELECT-
+
+-print an table-
+ select * from sample;
+
+-print a particular column -
+ select sno,name from sample;
+
+UPDATE-
+
+-update or rename a name-
+ update sample set name='Yr' where sno=101; (sno is used as directions) 
+ or
+ update sample set name='Yr',sno=104 where name='yashu';(same and muiltple variable too)
+
+DELETE-
+
+-delete a row only with a conditions
+ delete from sample where name='yashu';
+
+-delete a content in an table
+ delete table sample;
+
+6)Printing Commands-
+
+-Printing the table-
+ select * from sample;
+
+-Printing a particular column-
+ select sno from sample;
+
+-Printing table with a limit of data to print-
+ select * from sample limit 2;
+
+-Column under an conditions
+ select * from sample where value>100;
+
+-Multiple conditions-
+ select * from sample where sno=1 and values>10;
+
+-Specific column under an conditions-
+ select sno, name from sample where value>100;
+
+-Upper case
+ select upper(name) from sample;
+
+-Lower case
+ select lower(name) from sample;
+
+-Length of data in an whole column-
+ select length(name) from sample
+ verify - select name, length(name) from sample;
+
+-Concat -Print two column data into one(used for first and last name to print full name)
+ select concat(first_name,'-',last_name) from sample;
+
+-Substring -Extract specific limit length of an data from all columns
+ select substring(name,1,5) from sample 
+
+-Trim the space in the data('   YASHU   '-'YASHU')
+ select trim(name) from sample;
+
+-Pad -Printing data with left out space with mentioned special character
+ select lpad(name,7,'*') from sample;
+ or
+ select rpad(name,7,'*') from sample;
+
+-Replace - replace a variable into mentioned variable in and data
+ select replace (name,'yashu','YASHU') from sample; 
+ or
+ select replace(name,' ','_') from sample;(used if data contain space in it)
+
+-Instr - Tell the positions of a specific variable in the data
+ select instr(name,'a') from sample
+
+-Left and right -used to print left or right side variable
+ select left(name,1) from sample;
+ or
+ select right(name,2) from sample;
+
+-Reverse- reverse a string 
+ select reverse(name) from sample;
+
+-VIEW (Used to give a name to call the functions)-
+ Mainly used to show the output in clear way by not show the background work.
+ Advantage - It doesn't need space to save  
+ Create view staff as (select ......)
+ select * from staff;
+
+ASCENDING AND DESCENDING ORDER -
+
+-Data in order by column-
+ select * from sample order by values;
+
+-Data in ascending ordered -
+ select * from sample order by values asc;
+
+-Data in descending ordered -
+ select * from sample order by values desc;
+
+Aggregate functions - Count, Sum, Avg, Minimum and Maximum - 
+
+-Count no of data -
+ select count(*) from sample;
+
+-Count no of data on an specific column(used when it has null value);
+ select count(values) from sample;
+
+-Count no of data under a conditions-
+ select count(*) from sample where salary>1000;
+
+-Total sum values of column-
+ select sum(values) from sample;
+
+-Average value of an column-
+ select avg(values) from sample; 
+
+-Minimum value in an table-
+ select min(values) from sample;
+
+-Minimum value with it's table content-
+ select * from xyz where salary=(select min(salary) from xyz);
+
+-Maximum value in an table-
+ select max(values) from sample;
+
+-Maximum value with it's table content -
+ select * from xyz where salary=(select max(salary) from xyz);
+
+AS-
+
+-Count, min, max, sum the value and print in different column name -
+ select count(*) as total from xyz;
+ select sum(values) as total from xyz; ......
+
+IN,NOT IN,AND,OR -
+
+-Checking with multiple variable in(shortcut of and ,when searching in same column) -
+ select * from sample where working in('exist', 'non e');
+
+-Checking with variable if there or not(print other variable except this)
+ select * from sample where working not in('exist');
+
+-Printing under multiple condition (used in different column condition in an table)-
+ select * from sample where working='exist' and salary>1000;
+
+-Printing if one conditions is satisfied under conditions-
+ select * from sample where working='exist' or salary>750;
+
+IS and IS NOT (used for null values)-
+
+-Print the data of specific column which contain null value
+ select * from sample where name is null
+
+-Print the data of having null values-
+ select * from sample where name is null or salary is null..;
+
+-Count number of null values in an table-
+ select count(*) from sample where name is null;
+
+-Printing none null column-
+ select * from sample where is not null;
+
+-Print null values (Include string null like 'NULL' and None)-
+ select * from sample where name is null or name='Null'; 
+
+-Replace null value to 0 (temporally print and doesn't replace null)-
+ select coalesce(values , '0.00') from sample;
+ or 
+ select IFNULL(values, '0.00') from sample;
+
+REGEX-
+
+- A sequence of characters (a pattern) used to search, match, or manipulate text.
+
+- Refer the MySQL regex command to explore more .
+
+-Syntax - select * from employee where name regexp '^a'; 
+ print name starting from a.
+
+In short:
+
+7)JOINS-
+
+-INNER JOIN → Returns rows that have matching values in both tables.
+
+-LEFT JOIN (LEFT OUTER JOIN) → Returns all rows from the left table and matching rows from the right table; non-matching rows show NULL.
+
+-RIGHT JOIN (RIGHT OUTER JOIN) → Returns all rows from the right table and matching rows from the left table; non-matching rows show NULL.
+
+-FULL JOIN (FULL OUTER JOIN) → Returns all rows when there is a match in either table; unmatched rows from both sides show NULL.
+
+-SELF JOIN → Joins a table with itself
+
+https://joins.spathon.com/ - referring website
